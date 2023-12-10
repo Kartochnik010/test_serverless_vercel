@@ -86,7 +86,7 @@ func SendRequest(msgs []Message) (*GptResponse, error) {
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}
-	fmt.Println("request: ", string(b))
+	// fmt.Println("request: ", string(b))
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", strings.Trim(GptToken, "\"")))
 	req.Header.Set("Content-Type", "application/json")
 
