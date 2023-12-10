@@ -84,7 +84,7 @@ func SendRequest(msgs []Message) (*GptResponse, error) {
 	}
 	req, err := http.NewRequest("POST", GptURL, bytes.NewBuffer(b))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("%s: %w", op, err)
 	}
 	fmt.Println("request: ", string(b))
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", strings.Trim(GptToken, "\"")))
@@ -92,7 +92,7 @@ func SendRequest(msgs []Message) (*GptResponse, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("%s: %w", op, err)
+		return nil, fmt.Errorf("%s: %w, %s", op, err, resp.Status)
 	}
 	defer resp.Body.Close()
 
